@@ -72,73 +72,73 @@ const MODELS = [
   {
     model: "deepseek-v4p1-flash[1m]",
     label: "DeepSeek V4.1 Flash",
-    description: "👀 Fireworks serverless (DeepSeek V4.1 Flash): $0.22 in / $0.66 out per Mtok ($0.007 cached in).",
+    description: "👀 Fireworks: cached $0.007 · in $ 0.22 · out $ 0.66",
   },
   {
     model: "glm-5p3-flash[1m]",
     label: "GLM 5.3 Flash",
-    description: "👀 Fireworks serverless (GLM 5.3 Flash): $0.15 in / $0.50 out per Mtok ($0.03 cached in).",
+    description: "👀 Fireworks: cached $0.03  · in $ 0.15 · out $ 0.50",
   },
   {
     model: "kimi-k3[1m]",
     label: "Kimi K3",
-    description: "👀 Fireworks serverless (Kimi K3): $3 in / $15 out per Mtok ($0.3 cached in).",
+    description: "👀 Fireworks: cached $0.30  · in $ 3    · out $15",
   },
   {
     model: "claude-haiku-4-5",
     label: "Claude Haiku 4.5",
-    description: "👀 Anthropic Claude Haiku 4.5: $2 in / $5 out per Mtok ($0.1 cached in).",
+    description: "👀 Anthropic: cached $0.10  · in $ 2    · out $ 5",
   },
   {
     model: "claude-sonnet-5[1m]",
     label: "Claude Sonnet 5",
-    description: "👀 Anthropic Claude Sonnet 5: $4 in / $10 out per Mtok ($0.2 cached in).",
+    description: "👀 Anthropic: cached $0.20  · in $ 4    · out $10",
   },
   {
-    model: "claude-opus-5[1m]",
-    label: "Claude Opus 5",
-    description: "👀 Anthropic Claude Opus 5: $10 in / $25 out per Mtok ($0.5 cached in).",
+    model: "claude-opus-5-5[1m]",
+    label: "Claude Opus 5.5",
+    description: "👀 Anthropic: cached $0.20  · in $ 8    · out $20",
   },
   {
     model: "claude-fable-5-1[1m]",
     label: "Claude Fable 5.1",
-    description: "👀 Anthropic Claude Fable 5.1: $20 in / $50 out per Mtok ($0.25 cached in).",
+    description: "👀 Anthropic: cached $0.25  · in $20    · out $50",
   },
   {
     model: "glm-5p3[1m]",
     label: "GLM 5.3",
-    description: "🙈 Fireworks serverless (GLM 5.3): $1.4 in / $4.4 out per Mtok ($0.26 cached in).",
+    description: "🙈 Fireworks: cached $0.26  · in $ 1.40 · out $ 4.40",
   },
   {
     model: "qwen3p8-max",
     label: "[Experimental] Qwen 3.8 Max",
-    description: "👀 Fireworks serverless (Qwen 3.8 Max): $2 in / $6 out per Mtok ($0.25 cached in).",
+    description: "👀 Fireworks: cached $0.25  · in $ 2    · out $ 6",
   },
   // Deprecated models live at the end of the list so they stay out of the way.
   {
     model: "deepseek-v4-flash-vision-exp[1m]",
     label: "[Deprecated] DeepSeek V4 Flash Vision",
-    description: "🙈 Fireworks serverless (DeepSeek V4 Flash Vision Exp): $0.22 in / $0.66 out per Mtok ($0.007 cached in).",
+    description: "👀 Fireworks: cached $0.007 · in $ 0.22 · out $ 0.66",
   },
   {
     model: "deepseek-v4-pro-0813[1m]",
     label: "[Deprecated] DeepSeek V4 Pro (0813)",
-    description: "🙈 Fireworks serverless (DeepSeek V4 Pro (0813)): $1.32 in / $3.96 out per Mtok ($0.044 cached in).",
+    description: "🙈 Fireworks: cached $0.044 · in $ 1.32 · out $ 3.96",
   },
   {
     model: "kimi-k2p6",
     label: "[Deprecated] Kimi K2.6",
-    description: "🙈 Fireworks serverless (Kimi K2.6): $0.95 in / $4 out per Mtok ($0.16 cached in).",
+    description: "👀 Fireworks: cached $0.16  · in $ 0.95 · out $ 4",
   },
   {
     model: "glm-5p2[1m]",
     label: "[Deprecated] GLM 5.2",
-    description: "🙈 Fireworks serverless (GLM 5.2): $1.4 in / $4.4 out per Mtok ($0.14 cached in).",
+    description: "🙈 Fireworks: cached $0.14  · in $ 1.40 · out $ 4.40",
   },
   {
     model: "deepseek-v4-flash-0731[1m]",
     label: "[Deprecated] DeepSeek V4 Flash (0731)",
-    description: "🙈 Fireworks serverless (DeepSeek V4 Flash (0731)): $0.22 in / $0.66 out per Mtok ($0.007 cached in).",
+    description: "🙈 Fireworks: cached $0.007 · in $ 0.22 · out $ 0.66",
   },
 ];
 
@@ -166,14 +166,16 @@ settings.attribution = {commit: "", pr: ""};
 
 // The fireconnect CLI no longer accepts model/slot flags, so point the main
 // model and each slot at Fireworks via settings instead.
-settings.model = "deepseek-v4p1-flash[1m]";
+settings.model = "glm-5p3-flash[1m]";
+settings.effortLevel = "medium";
 settings.env = {
   ...settings.env,
-  ANTHROPIC_DEFAULT_OPUS_MODEL: "glm-5p3-flash[1m]",
+  // For now, Opus and Fable slots use the default claude models.
+  // ANTHROPIC_DEFAULT_FABLE_MODEL: "kimi-k3[1m]",
+  // ANTHROPIC_DEFAULT_OPUS_MODEL: "glm-5p3-flash[1m]",
   ANTHROPIC_DEFAULT_SONNET_MODEL: "deepseek-v4p1-flash[1m]",
-  ANTHROPIC_DEFAULT_HAIKU_MODEL: "deepseek-v4p1-flash[1m]",
-  ANTHROPIC_DEFAULT_FABLE_MODEL: "kimi-k3[1m]",
-  CLAUDE_CODE_SUBAGENT_MODEL: "deepseek-v4p1-flash[1m]",
+  ANTHROPIC_DEFAULT_HAIKU_MODEL: "glm-5p3-flash[1m]",
+  CLAUDE_CODE_SUBAGENT_MODEL: "glm-5p3-flash[1m]",
 };
 
 settings.modelPicker = {
@@ -256,4 +258,9 @@ echo "  - run 'fireconnect claude usage' to see detailed usage info for all sess
 echo "  - run 'fireconnect key export' to get your fireworks API key"
 echo "  - run 'fireconnect claude off' to restore your claude config to its pre-fireworks state"
 echo "  - run this script again to reapply the latest settings (it is safely idempotent)"
-
+echo
+echo "*** WARNING: opus and fable slots now default to using anthropic models."
+echo "  - prefer to use the exact model ids you want with /model or use the selector"
+echo "  - similarly, use model ids in custom commands or agents if you want open models"
+echo "  - for technical reasons, sonnet is deepseek-v4p1-flash and haiku is glm-5p3-flash."
+echo "    this is not due to their relative strength or price."
