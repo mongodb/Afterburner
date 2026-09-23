@@ -60,6 +60,19 @@ resolve_node() {
   echo "${node_bin}"
 }
 
+# Drop a launcher that re-runs this script, so machines can self-update
+# without keeping a local copy around.
+install_updater() {
+  local updater_dir="${HOME}/.local/bin"
+  local updater="${updater_dir}/update-fireclaude"
+  mkdir -p "${updater_dir}"
+  cat > "${updater}" <<'EOF'
+#!/usr/bin/env bash
+exec bash <(curl -fsSL https://raw.githubusercontent.com/mongodb/afterburner/main/setup-fireconnect.sh)
+EOF
+  chmod +x "${updater}"
+}
+
 adjust_claude_settings() {
   local node_bin
   node_bin="$(resolve_node)"
@@ -253,11 +266,15 @@ echo "*** Adjusting Claude Code settings..."
 adjust_claude_settings
 echo
 
+echo "*** Installing update-fireclaude self-updater..."
+install_updater
+echo
+
 echo "*** All done, You can now use claude with fireworks models! Tips:"
 echo "  - run 'fireconnect claude usage' to see detailed usage info for all sessions in the current directory"
 echo "  - run 'fireconnect key export' to get your fireworks API key"
 echo "  - run 'fireconnect claude off' to restore your claude config to its pre-fireworks state"
-echo "  - run this script again to reapply the latest settings (it is safely idempotent)"
+echo "  - run update-fireclaude to apply the latest settings (it is safely idempotent)"
 echo
 echo "*** WARNING: opus and fable slots now default to using anthropic models."
 echo "  - prefer to use the exact model ids you want with /model or use the selector"
