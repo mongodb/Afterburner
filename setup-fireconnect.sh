@@ -85,32 +85,27 @@ const MODELS = [
   {
     model: "deepseek-v4p1-flash[1m]",
     label: "DeepSeek V4.1 Flash",
-    description: "👀 Fireworks: cached $0.007 · in $ 0.22 · out $ 0.66",
+    description: "👀 Fireworks: cached $0.007 · in  $0.22 · out  $0.66",
   },
   {
     model: "glm-5p3-flash[1m]",
     label: "GLM 5.3 Flash",
-    description: "👀 Fireworks: cached $0.03  · in $ 0.15 · out $ 0.50",
-  },
-  {
-    model: "kimi-k3[1m]",
-    label: "Kimi K3",
-    description: "👀 Fireworks: cached $0.30  · in $ 3    · out $15",
+    description: "👀 Fireworks: cached $0.03  · in  $0.15 · out  $0.50",
   },
   {
     model: "claude-haiku-4-5",
     label: "Claude Haiku 4.5",
-    description: "👀 Anthropic: cached $0.10  · in $ 2    · out $ 5",
+    description: "👀 Anthropic: cached $0.10  · in  $2    · out  $5",
   },
   {
     model: "claude-sonnet-5[1m]",
     label: "Claude Sonnet 5",
-    description: "👀 Anthropic: cached $0.20  · in $ 4    · out $10",
+    description: "👀 Anthropic: cached $0.20  · in  $4    · out $10",
   },
   {
     model: "claude-opus-5-5[1m]",
     label: "Claude Opus 5.5",
-    description: "👀 Anthropic: cached $0.20  · in $ 8    · out $20",
+    description: "👀 Anthropic: cached $0.20  · in  $8    · out $20",
   },
   {
     model: "claude-fable-5-1[1m]",
@@ -120,38 +115,48 @@ const MODELS = [
   {
     model: "glm-5p3[1m]",
     label: "GLM 5.3",
-    description: "🙈 Fireworks: cached $0.26  · in $ 1.40 · out $ 4.40",
+    description: "🙈 Fireworks: cached $0.26  · in  $1.40 · out  $4.40",
+  },
+  {
+    model: "kimi-k3[1m]",
+    label: "Kimi K3",
+    description: "👀 Fireworks: cached $0.30  · in  $3    · out $15",
+  },
+  {
+    model: "ember-1[1m]",
+    label: "[EXP] Ember (FW fine-tuned K3)",
+    description: "👀 Fireworks: cached $0.30  · in  $3    · out $15",
   },
   {
     model: "qwen3p8-max",
-    label: "[Experimental] Qwen 3.8 Max",
-    description: "👀 Fireworks: cached $0.25  · in $ 2    · out $ 6",
+    label: "[EXP] Qwen 3.8 Max",
+    description: "👀 Fireworks: cached $0.25  · in  $2    · out  $6",
   },
   // Deprecated models live at the end of the list so they stay out of the way.
   {
     model: "deepseek-v4-flash-vision-exp[1m]",
-    label: "[Deprecated] DeepSeek V4 Flash Vision",
-    description: "👀 Fireworks: cached $0.007 · in $ 0.22 · out $ 0.66",
+    label: "[DEPR] DeepSeek V4 Flash Vision",
+    description: "👀 Fireworks: cached $0.007 · in  $0.22 · out  $0.66",
   },
   {
     model: "deepseek-v4-pro-0813[1m]",
-    label: "[Deprecated] DeepSeek V4 Pro (0813)",
-    description: "🙈 Fireworks: cached $0.044 · in $ 1.32 · out $ 3.96",
+    label: "[DEPR] DeepSeek V4 Pro (0813)",
+    description: "🙈 Fireworks: cached $0.044 · in  $1.32 · out  $3.96",
   },
   {
     model: "kimi-k2p6",
-    label: "[Deprecated] Kimi K2.6",
-    description: "👀 Fireworks: cached $0.16  · in $ 0.95 · out $ 4",
+    label: "[DEPR] Kimi K2.6",
+    description: "👀 Fireworks: cached $0.16  · in  $0.95 · out  $4",
   },
   {
     model: "glm-5p2[1m]",
-    label: "[Deprecated] GLM 5.2",
-    description: "🙈 Fireworks: cached $0.14  · in $ 1.40 · out $ 4.40",
+    label: "[DEPR] GLM 5.2",
+    description: "🙈 Fireworks: cached $0.14  · in  $1.40 · out  $4.40",
   },
   {
     model: "deepseek-v4-flash-0731[1m]",
-    label: "[Deprecated] DeepSeek V4 Flash (0731)",
-    description: "🙈 Fireworks: cached $0.007 · in $ 0.22 · out $ 0.66",
+    label: "[DEPR] DeepSeek V4 Flash (0731)",
+    description: "🙈 Fireworks: cached $0.007 · in  $0.22 · out  $0.66",
   },
 ];
 
