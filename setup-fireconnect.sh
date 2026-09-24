@@ -68,7 +68,7 @@ install_updater() {
   mkdir -p "${updater_dir}"
   cat > "${updater}" <<'EOF'
 #!/usr/bin/env bash
-exec bash <(curl -fsSL https://raw.githubusercontent.com/mongodb/afterburner/main/setup-fireconnect.sh)
+exec bash <(curl -fsSL https://raw.githubusercontent.com/mongodb/afterburner/main/setup-fireconnect.sh) "$@"
 EOF
   chmod +x "${updater}"
 }
