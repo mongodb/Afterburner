@@ -132,32 +132,6 @@ const MODELS = [
     label: "[EXP] Qwen 3.8 Max",
     description: "👀 Fireworks: cached $0.25  · in  $2    · out  $6",
   },
-  // Deprecated models live at the end of the list so they stay out of the way.
-  {
-    model: "deepseek-v4-flash-vision-exp[1m]",
-    label: "[DEPR] DeepSeek V4 Flash Vision",
-    description: "👀 Fireworks: cached $0.007 · in  $0.22 · out  $0.66",
-  },
-  {
-    model: "deepseek-v4-pro-0813[1m]",
-    label: "[DEPR] DeepSeek V4 Pro (0813)",
-    description: "🙈 Fireworks: cached $0.044 · in  $1.32 · out  $3.96",
-  },
-  {
-    model: "kimi-k2p6",
-    label: "[DEPR] Kimi K2.6",
-    description: "👀 Fireworks: cached $0.16  · in  $0.95 · out  $4",
-  },
-  {
-    model: "glm-5p2[1m]",
-    label: "[DEPR] GLM 5.2",
-    description: "🙈 Fireworks: cached $0.14  · in  $1.40 · out  $4.40",
-  },
-  {
-    model: "deepseek-v4-flash-0731[1m]",
-    label: "[DEPR] DeepSeek V4 Flash (0731)",
-    description: "🙈 Fireworks: cached $0.007 · in  $0.22 · out  $0.66",
-  },
 ];
 
 // Write to a temp file and rename so a crash mid-write can never leave the
