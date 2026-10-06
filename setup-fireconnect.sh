@@ -85,7 +85,7 @@ const MODELS = [
   {
     model: "deepseek-v4p1-flash[1m]",
     label: "DeepSeek V4.1 Flash",
-    description: "👀 Fireworks: cached $0.007 · in  $0.22 · out  $0.66",
+    description: "👀 Fireworks: cached $0.006 · in  $0.30 · out  $1.20",
   },
   {
     model: "glm-5p3-flash[1m]",
