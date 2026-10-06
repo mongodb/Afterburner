@@ -160,8 +160,14 @@ settings.attribution = {commit: "", pr: ""};
 // model and each slot at Fireworks via settings instead.
 settings.model = "glm-5p3-flash[1m]";
 settings.effortLevel = "medium";
+// Auto mode's bash classifier resolves through the model slots and times out
+// when they point at Fireworks, failing auto mode closed (see the Fireworks
+// guidance in the #claude-code-help thread from 2026-09-30). Route
+// classification through the hosted auto-mode server instead so it does not
+// depend on Fireworks availability.
 settings.env = {
   ...settings.env,
+  CLAUDE_CODE_AUTO_MODE_SERVER: "1",
   // For now, Opus and Fable slots use the default claude models.
   // ANTHROPIC_DEFAULT_FABLE_MODEL: "kimi-k3[1m]",
   // ANTHROPIC_DEFAULT_OPUS_MODEL: "glm-5p3-flash[1m]",
