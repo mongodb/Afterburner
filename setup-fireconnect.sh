@@ -93,9 +93,9 @@ const MODELS = [
     description: "👀 Fireworks: cached $0.03  · in  $0.15 · out  $0.50",
   },
   {
-    model: "claude-haiku-4-5",
-    label: "Claude Haiku 4.5",
-    description: "👀 Anthropic: cached $0.10  · in  $2    · out  $5",
+    model: "claude-haiku-5-5[1m]",
+    label: "Claude Haiku 5.5",
+    description: "👀 Anthropic: cached $0.05  · in  $1    · out  $2.50 (-80% discount <100k)",
   },
   {
     model: "claude-sonnet-5-5[1m]",
