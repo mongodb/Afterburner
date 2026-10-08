@@ -156,18 +156,10 @@ try {
 
 settings.attribution = {commit: "", pr: ""};
 
-// The fireconnect CLI no longer accepts model/slot flags, so point the main
-// model and each slot at Fireworks via settings instead.
 settings.model = "glm-5p3-flash[1m]";
 settings.effortLevel = "medium";
 settings.env = {
   ...settings.env,
-  // For now, Opus and Fable slots use the default claude models.
-  // ANTHROPIC_DEFAULT_FABLE_MODEL: "kimi-k3[1m]",
-  // ANTHROPIC_DEFAULT_OPUS_MODEL: "glm-5p3-flash[1m]",
-  ANTHROPIC_DEFAULT_SONNET_MODEL: "deepseek-v4p1-flash[1m]",
-  ANTHROPIC_DEFAULT_HAIKU_MODEL: "glm-5p3-flash[1m]",
-  CLAUDE_CODE_SUBAGENT_MODEL: "glm-5p3-flash[1m]",
 };
 
 settings.modelPicker = {
@@ -236,9 +228,13 @@ fi
 echo
 
 echo "*** Configuring claude to use fireworks models..."
-# No model/slot flags on the CLI; the main model and the other slots are set
-# via settings.json in adjust_claude_settings below.
-"${FC}" claude on
+# For now, Opus and Fable slots use the default claude models.
+"${FC}" claude on \
+    --subagent "glm-5p3-flash" \
+    --haiku "glm-5p3-flash" \
+    --sonnet "deepseek-v4p1-flash" \
+    --opus native \
+    --fable native
 echo
 
 echo "*** Adjusting Claude Code settings..."
@@ -253,7 +249,7 @@ echo "*** All done, You can now use claude with fireworks models! Tips:"
 echo "  - run 'fireconnect claude usage' to see detailed usage info for all sessions in the current directory"
 echo "  - run 'fireconnect key export' to get your fireworks API key"
 echo "  - run 'fireconnect claude off' to restore your claude config to its pre-fireworks state"
-echo "  - run update-fireclaude to apply the latest settings (it is safely idempotent)"
+echo "  - run update-fireclaude to (re)apply the latest settings (it is safely idempotent)"
 echo
 echo "*** WARNING: opus and fable slots now default to using anthropic models."
 echo "  - prefer to use the exact model ids you want with /model or use the selector"
