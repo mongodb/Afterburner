@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-INSTALL_URL="https://fireconnect.fireworks.ai/install.sh"
+INSTALL_URL="https://nexus.fireworks.ai/install.sh"
 
 for arg in "$@"; do
   case "${arg}" in
@@ -21,13 +21,13 @@ fetch() {
 
 # The installer puts the launcher at ~/.local/bin, which may not be on PATH
 # in the current shell session yet, so fall back to it explicitly.
-resolve_fireconnect() {
-  if command -v fireconnect >/dev/null 2>&1; then
-    command -v fireconnect
-  elif [[ -x "${HOME}/.local/bin/fireconnect" ]]; then
-    echo "${HOME}/.local/bin/fireconnect"
+resolve_nexus() {
+  if command -v nexus >/dev/null 2>&1; then
+    command -v nexus
+  elif [[ -x "${HOME}/.local/bin/nexus" ]]; then
+    echo "${HOME}/.local/bin/nexus"
   else
-    echo "fireconnect not found on PATH or at ${HOME}/.local/bin/fireconnect" >&2
+    echo "nexus not found on PATH or at ${HOME}/.local/bin/nexus" >&2
     return 1
   fi
 }
@@ -170,8 +170,8 @@ fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
 writeJsonAtomic(settingsPath, settings);
 
 // A stale orgModelDefaultCache in ~/.claude.json can keep overriding the model
-// defaults that 'fireconnect claude on' just configured, so drop it if present.
-// Running `claude auth login` would also drop this field while fireconnected.
+// defaults that 'nexus claude on' just configured, so drop it if present.
+// Running `claude auth login` would also drop this field while connected through nexus.
 const configPath = path.join(os.homedir(), ".claude.json");
 let config;
 try {
@@ -196,40 +196,42 @@ fi
 echo
 
 # Reuse an existing install (upgrading in place, which is quiet when current)
-# and fall back to the installer when fireconnect is missing or the upgrade fails.
-if FC="$(resolve_fireconnect 2>/dev/null)"; then
-  echo "*** Upgrading FireConnect..."
-  if ! "${FC}" upgrade; then
-    echo "*** Upgrade failed; reinstalling FireConnect..."
+# and fall back to the installer when nexus is missing or the upgrade fails.
+# A pre-rename install only has `fireconnect`, so it lands in the install
+# branch; the installer moves the data directory and replaces the launcher.
+if NEXUS="$(resolve_nexus 2>/dev/null)"; then
+  echo "*** Upgrading Nexus..."
+  if ! "${NEXUS}" upgrade; then
+    echo "*** Upgrade failed; reinstalling Nexus..."
     fetch "${INSTALL_URL}" | bash
-    FC="$(resolve_fireconnect)"
+    NEXUS="$(resolve_nexus)"
   fi
 else
-  echo "*** Installing FireConnect..."
+  echo "*** Installing Nexus..."
   fetch "${INSTALL_URL}" | bash
-  FC="$(resolve_fireconnect)"
+  NEXUS="$(resolve_nexus)"
 fi
 echo
 
 # status exits 1 when no key is stored or the gateway rejects it; a key that
 # can't be verified (e.g. offline) still exits 0, so network blips skip login.
-if "${FC}" status --json >/dev/null 2>&1; then
+if "${NEXUS}" status --json >/dev/null 2>&1; then
   echo "*** Already signed in; skipping login"
 else
   echo "*** Logging in to fireworks..."
   if [[ -n "${SSH_CONNECTION:-}" ]]; then
-    echo "*** You can set up fireconnect on your local machine and run 'fireconnect key export' there to get an API key."
+    echo "*** You can set up nexus on your local machine and run 'nexus key export' there to get an API key."
     echo "*** If you want to use the browser, first go to https://app.fireworks.ai/login/sso?accountID=${ACCOUNT:-mongodb} to sign in."
-    "${FC}" login --paste
+    "${NEXUS}" login --paste
   else
-    "${FC}" login --account "${ACCOUNT:-mongodb}"
+    "${NEXUS}" login --account "${ACCOUNT:-mongodb}"
   fi
 fi
 echo
 
 echo "*** Configuring claude to use fireworks models..."
 # For now, Opus and Fable slots use the default claude models.
-"${FC}" claude on \
+"${NEXUS}" claude on \
     --subagent "glm-5p3-flash" \
     --haiku "glm-5p3-flash" \
     --sonnet "deepseek-v4p1-flash-1017" \
@@ -246,10 +248,13 @@ install_updater
 echo
 
 echo "*** All done, You can now use claude with fireworks models! Tips:"
-echo "  - run 'fireconnect claude usage' to see detailed usage info for all sessions in the current directory"
-echo "  - run 'fireconnect key export' to get your fireworks API key"
-echo "  - run 'fireconnect claude off' to restore your claude config to its pre-fireworks state"
+echo "  - run 'nexus claude usage' to see detailed usage info for all sessions in the current directory"
+echo "  - run 'nexus key export' to get your fireworks API key"
+echo "  - run 'nexus claude off' to restore your claude config to its pre-fireworks state"
 echo "  - run update-fireclaude to (re)apply the latest settings (it is safely idempotent)"
+echo
+echo "*** WARNING: fireconnect has been renamed to nexus."
+echo "  - the binary is now 'nexus'; update any scripts or commands that still call 'fireconnect'"
 echo
 echo "*** WARNING: opus and fable slots now default to using anthropic models."
 echo "  - prefer to use the exact model ids you want with /model or use the selector"
