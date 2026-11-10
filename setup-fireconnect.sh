@@ -110,7 +110,7 @@ const MODELS = [
   {
     model: "claude-fable-5-2[1m]",
     label: "Claude Fable 5.2",
-    description: "👀 Anthropic: see current pricing",
+    description: "👀 Anthropic: cached $0.20  · in  $8    · out $40",
   },
   {
     model: "glm-5p3[1m]",
