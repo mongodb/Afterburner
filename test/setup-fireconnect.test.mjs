@@ -17,6 +17,12 @@ const fireworksModels = [
   "ember-1[1m]",
   "qwen3p8-max",
 ];
+const anthropicModels = [
+  { model: "claude-haiku-5-5[1m]", label: "Claude Haiku 5.5" },
+  { model: "claude-sonnet-5-5[1m]", label: "Claude Sonnet 5.5" },
+  { model: "claude-opus-5-5[1m]", label: "Claude Opus 5.5" },
+  { model: "claude-fable-5-2[1m]", label: "Claude Fable 5.2" },
+];
 
 function fixture(t) {
   const home = fs.mkdtempSync(path.join(os.tmpdir(), "afterburner-test-"));
@@ -55,8 +61,17 @@ function fixture(t) {
 }
 
 function assertPicker(settings) {
-  assert.equal(settings.modelPicker.replaceBuiltInOptions, false);
-  assert.deepEqual(settings.modelPicker.options.map(({ model }) => model), fireworksModels);
+  const { options, replaceBuiltInOptions } = settings.modelPicker;
+  assert.equal(replaceBuiltInOptions, true);
+  assert.equal(options.length, fireworksModels.length + anthropicModels.length);
+  assert.deepEqual(
+    options.filter(({ model }) => !model.startsWith("claude-")).map(({ model }) => model),
+    fireworksModels,
+  );
+  assert.deepEqual(
+    options.filter(({ model }) => model.startsWith("claude-")).map(({ model, label }) => ({ model, label })),
+    anthropicModels,
+  );
   assert.equal(settings.model, "glm-5p3-flash[1m]");
 }
 
@@ -65,14 +80,14 @@ function assertSuccess(result) {
   assert.equal(result.status, 0, result.stderr);
 }
 
-test("fresh setup appends only Fireworks options to the built-in picker", (t) => {
+test("fresh setup explicitly lists Fable 5.2 and the other Anthropic and Fireworks models", (t) => {
   const f = fixture(t);
   assertSuccess(f.run());
   assertPicker(JSON.parse(fs.readFileSync(f.settingsPath, "utf8")));
   assert.ok(fs.existsSync(path.join(f.home, ".local", "bin", "update-fireclaude")));
 });
 
-test("existing setup restores built-in options and removes stale Anthropic rows", (t) => {
+test("existing setup replaces Fable 5.1 with Fable 5.2 and preserves unrelated settings", (t) => {
   const f = fixture(t);
   const permissions = { deny: ["Bash(rm:*)"] };
   const env = { ANTHROPIC_BASE_URL: "https://example.invalid/inference" };
@@ -99,7 +114,19 @@ test("existing setup restores built-in options and removes stale Anthropic rows"
   assert.deepEqual(JSON.parse(fs.readFileSync(f.configPath, "utf8")), { unrelated: "preserved" });
 });
 
-test("rerunning setup is idempotent and keeps built-in options enabled", (t) => {
+test("setup repairs an additive picker missing explicit Anthropic models", (t) => {
+  const f = fixture(t);
+  f.writeSettings({
+    modelPicker: {
+      replaceBuiltInOptions: false,
+      options: fireworksModels.map((model) => ({ model })),
+    },
+  });
+  assertSuccess(f.run());
+  assertPicker(JSON.parse(fs.readFileSync(f.settingsPath, "utf8")));
+});
+
+test("rerunning setup is idempotent and keeps Fable 5.2 explicitly listed", (t) => {
   const f = fixture(t);
   assertSuccess(f.run());
   const first = fs.readFileSync(f.settingsPath, "utf8");
