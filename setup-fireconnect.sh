@@ -95,7 +95,7 @@ const MODELS = [
   {
     model: "claude-haiku-5-5[1m]",
     label: "Claude Haiku 5.5",
-    description: "👀 Anthropic: <100k cached $0.01 · in $0.10 · out $0.50; 100k+ cached $0.05 · in $0.50 · out $2.50",
+    description: "👀 Anthropic: cached $0.05  · in  $0.50 · out  $2.50 (-80% discount <100k)",
   },
   {
     model: "claude-sonnet-5-5[1m]",
