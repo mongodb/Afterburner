@@ -95,17 +95,17 @@ const MODELS = [
   {
     model: "claude-haiku-5-5[1m]",
     label: "Claude Haiku 5.5",
-    description: "👀 Anthropic: cached $0.05  · in  $1    · out  $2.50 (-80% discount <100k)",
+    description: "👀 Anthropic: <100k cached $0.01 · in $0.10 · out $0.50; 100k+ cached $0.05 · in $0.50 · out $2.50",
   },
   {
     model: "claude-sonnet-5-5[1m]",
     label: "Claude Sonnet 5.5",
-    description: "👀 Anthropic: cached $0.10  · in  $4    · out $10",
+    description: "👀 Anthropic: cached $0.10  · in  $2    · out $10",
   },
   {
     model: "claude-opus-5-5[1m]",
     label: "Claude Opus 5.5",
-    description: "👀 Anthropic: cached $0.20  · in  $8    · out $20",
+    description: "👀 Anthropic: cached $0.20  · in  $4    · out $20",
   },
   {
     model: "claude-fable-5-2[1m]",
