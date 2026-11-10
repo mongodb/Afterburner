@@ -93,26 +93,6 @@ const MODELS = [
     description: "👀 Fireworks: cached $0.03  · in  $0.15 · out  $0.50",
   },
   {
-    model: "claude-haiku-5-5[1m]",
-    label: "Claude Haiku 5.5",
-    description: "👀 Anthropic: cached $0.05  · in  $1    · out  $2.50 (-80% discount <100k)",
-  },
-  {
-    model: "claude-sonnet-5-5[1m]",
-    label: "Claude Sonnet 5.5",
-    description: "👀 Anthropic: cached $0.10  · in  $4    · out $10",
-  },
-  {
-    model: "claude-opus-5-5[1m]",
-    label: "Claude Opus 5.5",
-    description: "👀 Anthropic: cached $0.20  · in  $8    · out $20",
-  },
-  {
-    model: "claude-fable-5-1[1m]",
-    label: "Claude Fable 5.1",
-    description: "👀 Anthropic: cached $0.25  · in $20    · out $50",
-  },
-  {
     model: "glm-5p3[1m]",
     label: "GLM 5.3",
     description: "🙈 Fireworks: cached $0.26  · in  $1.40 · out  $4.40",
@@ -167,9 +147,11 @@ settings.env = {
   ...settings.env,
 };
 
+// Append Fireworks models without hiding Claude Code's built-in options, so
+// new Anthropic models appear without updating this script's model list.
 settings.modelPicker = {
   options: MODELS,
-  replaceBuiltInOptions: true,
+  replaceBuiltInOptions: false,
 };
 fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
 writeJsonAtomic(settingsPath, settings);
