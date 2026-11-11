@@ -118,9 +118,9 @@ const MODELS = [
     description: "🙈 Fireworks: cached $0.26  · in  $1.40 · out  $4.40",
   },
   {
-    model: "kimi-k3[1m]",
-    label: "Kimi K3",
-    description: "👀 Fireworks: cached $0.30  · in  $3    · out $15",
+    model: "kimi-k3p1-pro[1m]",
+    label: "Kimi K3.1 Pro",
+    description: "👀 Fireworks: cached $0.20  · in  $2    · out $10",
   },
   {
     model: "minimax-m3p1-flash[1m]",
